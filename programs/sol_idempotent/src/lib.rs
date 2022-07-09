@@ -13,13 +13,10 @@ pub mod sol_idempotent {
     use super::*;
 
     pub fn create_map(ctx: Context<CreateMap>, size: u32) -> Result<()> {
-        let size = size as usize;
         let bit_map = &mut ctx.accounts.map;
 
         bit_map.owner = *ctx.accounts.payer.key;
-
-        // zero init entire vec
-        bit_map.bytes = Box::new(vec![0; size]).to_vec();
+        bit_map.bytes = Box::new(vec![0; size as usize]).to_vec();
 
         Ok(())
     }
@@ -29,16 +26,9 @@ pub mod sol_idempotent {
         let bit_map = &mut ctx.accounts.map;
 
         match check_bit_h(&bit_map.bytes, bit) {
-            true => {
-                // bit has already been set, we need to exit
-                return err!(CustomError::AlreadyRan);
-            },
-            false => {
-                mark_bit_h(&mut bit_map.bytes, bit);
-            }
-        };
-
-        Ok(())
+            true  => err!(CustomError::AlreadyRan),
+            false => mark_bit_h(&mut bit_map.bytes, bit)
+        }
     }
 }
 
@@ -46,6 +36,6 @@ pub fn check_bit_h(map: &Vec<u8>, bit: usize) -> bool {
     ((map[bit / 8]) >> (7 - (bit % 8))) & 1 == 1
 }
 
-pub fn mark_bit_h(map: &mut Vec<u8>, bit: usize) -> () {
-    map[bit / 8] = map[bit / 8] | 1 << (7 - (bit % 8)) as u8
+pub fn mark_bit_h(map: &mut Vec<u8>, bit: usize) -> Result<()> {
+    Ok(map[bit / 8] = map[bit / 8] | 1 << (7 - (bit % 8)) as u8)
 }
