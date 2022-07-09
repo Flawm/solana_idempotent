@@ -28,9 +28,6 @@ pub mod sol_idempotent {
         let bit = bit as usize;
         let bit_map = &mut ctx.accounts.map;
 
-        let a = check_bit_h(&bit_map.bytes, bit);
-        msg!("{:?}, {:?}", a, bit);
-
         match check_bit_h(&bit_map.bytes, bit) {
             true => {
                 // bit has already been set, we need to exit
