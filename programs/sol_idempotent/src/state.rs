@@ -30,7 +30,7 @@ pub struct MarkBit<'info> {
         mut,
         constraint = map.owner == *payer.key
     )]
-    pub map: Account<'info, MapAccount>
+    pub map: Box<Account<'info, MapAccount>>
 }
 
 #[account]
