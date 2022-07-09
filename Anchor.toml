@@ -1,6 +1,10 @@
+anchor_version = "0.24.2"
+
 [features]
 seeds = false
 [programs.localnet]
+sol_idempotent = "id7Fj1ywco2RdzTcQFNcYxf6Wu9iJZeNPtQY9xdsw87"
+[programs.mainnet]
 sol_idempotent = "id7Fj1ywco2RdzTcQFNcYxf6Wu9iJZeNPtQY9xdsw87"
 
 [registry]
