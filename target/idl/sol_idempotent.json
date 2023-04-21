@@ -1,0 +1,81 @@
+{
+  "version": "0.1.0",
+  "name": "sol_idempotent",
+  "instructions": [
+    {
+      "name": "createMap",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "map",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "size",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "markBit",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "map",
+          "isMut": true,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "bit",
+          "type": "u32"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "MapAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "publicKey"
+          },
+          {
+            "name": "bytes",
+            "type": "bytes"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AlreadyRan",
+      "msg": "TX Already ran."
+    }
+  ],
+  "metadata": {
+    "address": "id7Fj1ywco2RdzTcQFNcYxf6Wu9iJZeNPtQY9xdsw87"
+  }
+}
